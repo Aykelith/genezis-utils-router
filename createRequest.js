@@ -1,4 +1,4 @@
-import _GenezisConfig from "genezis/Checker";
+import _GenezisConfig from "@genezis/genezis/Checker";
 
 function getRequestData(req) {
     return req.method == "GET" ? req.query : req.body;

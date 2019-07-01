@@ -1,4 +1,4 @@
-import GenezisChecker from "genezis/Checker";
+import GenezisChecker from "@genezis/genezis/Checker";
 
 export default {
     genezisConfig: {

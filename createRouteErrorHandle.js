@@ -1,4 +1,4 @@
-import GenezisChecker from "genezis/Checker";
+import GenezisChecker from "@genezis/genezis/Checker";
 import RequestError from "./RequestError"; 
 
 export default (settings) => {

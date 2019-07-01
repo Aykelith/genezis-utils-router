@@ -1,4 +1,4 @@
-import _GenezisConfig from "genezis/Checker";
+import _GenezisConfig from "@genezis/genezis/Checker";
 import { RouteTypesValues } from "./data/RouteTypes";
 
 export default (requestType, path, requestFunc) => {

@@ -1,4 +1,4 @@
-import GenezisChecker from "genezis/Checker";
+import GenezisChecker from "@genezis/genezis/Checker";
 import RequestManager from "./RequestsManager";
 import createRouteErrorHandle from "./createRouteErrorHandle";
 
