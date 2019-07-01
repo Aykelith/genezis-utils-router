@@ -19,7 +19,7 @@ export default (settings) => {
             }
         }
 
-        console.error(error);
+        console.error(`Error on "${req.url}":`, error);
         settings.logger.error(error, { url: req.url, "user-agent": req.headers["user-agent"], ip: req.headers["x-real-ip"] });
         res.status(500).end();
     };

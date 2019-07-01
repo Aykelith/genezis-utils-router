@@ -1,32 +1,38 @@
-import RequestError from "./RequestError";
 import _GenezisConfig from "genezis/Checker";
 
-function getRequestData(req, routeType) {
+function getRequestData(req) {
     return req.method == "GET" ? req.query : req.body;
 }
 
 export default (settings = {}, f) => {
-    return async (req, res) => {
-        let onSuccess = (response) => {
+    return async (req, res, next) => {
+        let sharedData = {};
+
+        let onSuccess = (response, callNext = false) => {
+            if (callNext) {
+                next();
+                return;
+            }
+            
             res.json(response);
         };
 
         const data = getRequestData(req);
         if (settings.onBegin) {
             for (let i=0, length=settings.onBegin.length; i < length; ++i) {
-                await settings.onBegin[i](req, data);
+                await settings.onBegin[i](req, data, sharedData);
             }
         }
 
         try {
-            await f(req, data, onSuccess);
+            await f(req, data, onSuccess, sharedData);
         } catch (error) {
             //eee
 
             throw error;
         }
-    }
-}
+    };
+};
 
 /**
  * @name GenezisRulesConfigParams
@@ -45,4 +51,4 @@ export const GenezisRulesConfig = {
             // ]`
         })
     })
-}
+};
