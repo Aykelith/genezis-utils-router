@@ -8,13 +8,14 @@ export default (settings = {}, f) => {
     return async (req, res, next) => {
         let sharedData = {};
 
-        let onSuccess = (response, callNext = false) => {
+        let onSuccess = (response, callNext = false, resMethod = "json", resEndType) => {
             if (callNext) {
                 next();
                 return;
             }
             
-            res.json(response);
+            if (resEndType) res[resMethod](response, resEndType);
+            else            res[resMethod](response);
         };
 
         const data = getRequestData(req);
