@@ -10,7 +10,7 @@ export default (settings) => {
     GenezisChecker(settings, GenezisCheckerConfig);
 
     if (process.env.NODE_ENV === "production") {
-        return () => {};
+        return () => { return () => {}; };
     }
 
     return (head = "HEAD_IS_NOT_SETTED") => {
