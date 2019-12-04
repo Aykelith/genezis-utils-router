@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.2.6100
+
+- built ES5 files in folder `_es5`
+
 ## 0.2.6
 
 - fixed bug in `createRequestLogger` for production not returning the empty function

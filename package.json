@@ -1,6 +1,6 @@
 {
   "name": "@genezis/genezis-utils-router",
-  "version": "0.2.6",
+  "version": "0.2.6100",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Aykelith/genezis-utils-router/issues"
   },
-  "homepage": "https://github.com/Aykelith/genezis-utils-router#readme"
+  "homepage": "https://github.com/Aykelith/genezis-utils-router#readme",
+  "dependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4"
+  }
 }
