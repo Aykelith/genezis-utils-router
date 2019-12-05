@@ -27,7 +27,7 @@ export default (settings) => {
     GenezisChecker(settings, GenezisCheckerConfig);
 
     let routeErrorHandle = settings.routeErrorHandler || createRouteErrorHandle({
-        logger: _LOGGER_FACTORY.createLogger("router")
+        logger: console
     });
 
     return (app) => {

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.2.620
+
+- removed the `LOGGER_FACTORY` and now using `console`
+
 ## Version 0.2.6110
 
 - moved ES5 into his own module
