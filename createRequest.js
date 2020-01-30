@@ -8,11 +8,13 @@ export default (settings = {}, f) => {
     return async (req, res, next) => {
         let sharedData = {};
 
-        let onSuccess = (response, callNext = false, resMethod = "json", resEndType) => {
+        let onSuccess = (response, callNext = false, resMethod = "json", resEndType, writeHeadParams) => {
             if (callNext) {
                 next();
                 return;
             }
+
+            if (writeHeadParams) res.writeHead(writeHeadParams.status, writeHeadParams.headers);
             
             if (resEndType) res[resMethod](response, resEndType);
             else            res[resMethod](response);
