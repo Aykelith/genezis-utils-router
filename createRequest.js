@@ -28,7 +28,7 @@ export default (settings = {}, f) => {
         }
 
         try {
-            await f(req, data, onSuccess, sharedData);
+            await f(req, data, onSuccess, sharedData, res);
         } catch (error) {
             //eee
 
