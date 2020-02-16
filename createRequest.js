@@ -45,6 +45,13 @@ export default (settings = {}, f) => {
             }
         } catch (error) {
             error._requestID = sharedData._requestID;
+
+            if (settings.onError) {
+                for (let i=0, length=settings.onError.length; i < length; ++i) {
+                    await settings.onError[i](req, data, sharedData, error);
+                }
+            }
+
             throw error;
         }
 
