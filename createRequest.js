@@ -10,7 +10,9 @@ export default (settings = {}, f) => {
     return async (req, res, next) => {
         let sharedData = {};
 
-        if (!settings.generateRequestID) sharedData._uniqueID = uniqid(); 
+        if (!settings.generateRequestID) {
+            sharedData._requestID = uniqid();
+        }
 
         let onSuccess = (response, callNext = false, resMethod = "json", resEndType, writeHeadParams) => {
             if (callNext) {
@@ -25,25 +27,27 @@ export default (settings = {}, f) => {
         };
 
         const data = getRequestData(req);
-        if (settings.onBegin) {
-            for (let i=0, length=settings.onBegin.length; i < length; ++i) {
-                await settings.onBegin[i](req, data, sharedData);
-            }
-        }
 
         try {
-            await f(req, data, onSuccess, sharedData, res);
-        } catch (error) {
-            //eee
+            if (settings.onBegin) {
+                for (let i=0, length=settings.onBegin.length; i < length; ++i) {
+                    await settings.onBegin[i](req, data, sharedData);
+                }
+            }
 
+            await f(req, data, onSuccess, sharedData, res);
+
+            if (settings.onEnd) {
+                for (let i=0, length=settings.onEnd.length; i < length; ++i) {
+                    await settings.onEnd[i](req, data, sharedData);
+                }
+            }
+        } catch (error) {
+            error._requestID = sharedData._requestID;
             throw error;
         }
 
-        if (settings.onEnd) {
-            for (let i=0, length=settings.onEnd.length; i < length; ++i) {
-                await settings.onEnd[i](req, data, sharedData);
-            }
-        }
+        
     };
 };
 
