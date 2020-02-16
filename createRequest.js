@@ -1,5 +1,7 @@
 import _GenezisConfig from "@genezis/genezis/Checker";
 
+import uniqid from "uniqid";
+
 function getRequestData(req) {
     return req.method == "GET" ? req.query : req.body;
 }
@@ -7,6 +9,8 @@ function getRequestData(req) {
 export default (settings = {}, f) => {
     return async (req, res, next) => {
         let sharedData = {};
+
+        if (!settings.generateRequestID) sharedData._uniqueID = uniqid(); 
 
         let onSuccess = (response, callNext = false, resMethod = "json", resEndType, writeHeadParams) => {
             if (callNext) {
