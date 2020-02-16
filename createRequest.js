@@ -34,6 +34,12 @@ export default (settings = {}, f) => {
 
             throw error;
         }
+
+        if (settings.onEnd) {
+            for (let i=0, length=settings.onEnd.length; i < length; ++i) {
+                await settings.onEnd[i](req, data, sharedData);
+            }
+        }
     };
 };
 
