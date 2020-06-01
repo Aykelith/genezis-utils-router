@@ -15,7 +15,7 @@ export default class RequestManager {
     }
 
     addRoute(requestType, path, requestFunc, router) {
-        (router || this.app)[createRouteFunction(requestType)](path, asyncHandler(requestFunc));
+        (router || this.app)[createRouteFunction(requestType)](path, Array.isArray(requestFunc) ? requestFunc.map(f => asyncHandler(f)) : asyncHandler(requestFunc));
     }
 
     addGroupRoutes(mainPath, routes) {
