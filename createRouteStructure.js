@@ -13,6 +13,9 @@ export const GenezisChecker = _GenezisConfig.object({
     shape: {
         requestType: _GenezisConfig.required().integer().oneOf(RouteTypesValues),
         path: _GenezisConfig.required().string(),
-        requestFunc: _GenezisConfig.required().function()
+        requestFunc: _GenezisConfig.or([
+            _GenezisConfig.function(),
+            _GenezisConfig.array({ of: _GenezisConfig.function() })
+        ]).required()
     }
 });
