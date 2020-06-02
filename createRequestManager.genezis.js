@@ -1,7 +1,6 @@
 import GenezisChecker from "@genezis/genezis/Checker";
 import deleteOnProduction from "@genezis/genezis/utils/deleteOnProduction";
 import RequestManager from "./RequestsManager";
-import createRouteErrorHandle from "./createRouteErrorHandle";
 
 import { GenezisChecker as RouteStructureGenezisConfig } from "./createRouteStructure";
 
@@ -20,15 +19,14 @@ const GenezisCheckerConfig = deleteOnProduction({
         ])
     }).required(),
 
-    routeErrorHandler: GenezisChecker.function()
+    routeErrorHandler: GenezisChecker.or([
+        GenezisChecker.function(),
+        GenezisChecker.array({ of: GenezisChecker.function() })
+    ]).required()
 });
 
 export default (settings) => {
     GenezisChecker(settings, GenezisCheckerConfig);
-
-    let routeErrorHandle = settings.routeErrorHandler || createRouteErrorHandle({
-        logger: console
-    });
 
     return (app) => {
         let requestManager = new RequestManager(app);
@@ -41,7 +39,7 @@ export default (settings) => {
             }
         });
 
-        requestManager.use(routeErrorHandle);
+        requestManager.use(Array.isArray(settings.routeErrorHandler) ? ...settings.routeErrorHandler : settings.routeErrorHandler);
 
         return requestManager;
     }
