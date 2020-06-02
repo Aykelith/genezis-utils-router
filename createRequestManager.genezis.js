@@ -39,7 +39,8 @@ export default (settings) => {
             }
         });
 
-        requestManager.use(Array.isArray(settings.routeErrorHandler) ? ...settings.routeErrorHandler : settings.routeErrorHandler);
+        if (Array.isArray(settings.routeErrorHandler)) requestManager.use(...settings.routeErrorHandler);
+        else                                           requestManager.use(settings.routeErrorHandler);
 
         return requestManager;
     }
