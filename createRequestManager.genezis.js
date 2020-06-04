@@ -9,7 +9,10 @@ const GenezisCheckerConfig = deleteOnProduction({
         of: GenezisChecker.or([
             GenezisChecker.object({
                 shape: {
-                    mainPath: GenezisChecker.string().required(),
+                    mainPath: GenezisChecker.or([
+                        GenezisChecker.string(),
+                        GenezisChecker.array({ of: GenezisChecker.string() })
+                    ]).required(),
                     routesData: GenezisChecker.array({
                         of: RouteStructureGenezisConfig
                     }).required()

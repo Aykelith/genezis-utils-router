@@ -12,7 +12,10 @@ export default (requestType, path, requestFunc) => {
 export const GenezisChecker = _GenezisConfig.object({
     shape: {
         requestType: _GenezisConfig.required().integer().oneOf(RouteTypesValues),
-        path: _GenezisConfig.required().string(),
+        path: _GenezisConfig.or([
+            _GenezisConfig.string(),
+            _GenezisConfig.array({ of: _GenezisConfig.string() })
+        ]).required(),
         requestFunc: _GenezisConfig.or([
             _GenezisConfig.function(),
             _GenezisConfig.array({ of: _GenezisConfig.function() })
