@@ -1,19 +1,12 @@
 import _GenezisConfig from "@genezis/genezis/Checker";
 
-import nanoid from "nanoid/non-secure";
-
 function getRequestData(req) {
     return req.method == "GET" ? req.query : req.body;
 }
 
 export default (settings = {}, f) => {
     return async (req, res, next) => {
-        let sharedData = {};
-
-        //
-        if (!settings.generateRequestID) {
-            sharedData._requestID = nanoid();
-        }
+        let sharedData = { req };
 
         let onSuccess = (response, callNext = false, resMethod = "json", resEndType, writeHeadParams) => {
             if (callNext) {
