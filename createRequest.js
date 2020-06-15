@@ -1,6 +1,6 @@
 import _GenezisConfig from "@genezis/genezis/Checker";
 import nanoid from "nanoid/non-secure";
-import GenezisGeneralError from "@genezis/GenezisGeneralError";
+import GenezisGeneralError from "@genezis/genezis/GenezisGeneralError";
 
 export const ERROR_ALREADY_IN_REQUEST = "error:already_in_request";
 
