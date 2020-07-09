@@ -68,7 +68,7 @@ export default (settings = {}, f) => {
             await f(req, data, onSuccess, sharedData, res, checkIfUniqueCall);
 
             if (settings.preventMultipleCalls) {
-                req.session[sessionVariableName] = null;
+                delete req.session[sessionVariableName];
                 await new Promise(resolve => req.session.save(resolve));
             }
 
@@ -79,7 +79,7 @@ export default (settings = {}, f) => {
             }
         } catch (error) {
             if (settings.preventMultipleCalls) {
-                req.session[sessionVariableName] = null;
+                delete req.session[sessionVariableName];
                 await new Promise(resolve => req.session.save(resolve));
             }
 
