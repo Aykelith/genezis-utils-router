@@ -12,7 +12,7 @@ export default settings => {
         global._genezis_router.preventMultipleCalls.cleanSession = settings.preventMultipleCalls.cleanSession;
     }
 
-    if (global._genezis_router.requestWithStatus) {
+    if (settings.requestWithStatus) {
         global._genezis_router.requestWithStatus = {};
         global._genezis_router.requestWithStatus.prefixSessionName = settings.requestWithStatus.prefixSessionName || "genezis_rws";
         global._genezis_router.requestWithStatus.expireSeconds = settings.requestWithStatus.expireSeconds || 60;
